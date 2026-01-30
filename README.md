@@ -35,7 +35,7 @@ A modern, interactive personal portfolio featuring a 3D hero section with metall
 
 ```bash
 # Clone the repository
-git clone https://github.com/VolcanicKing/personal-portfolio.git
+git clone https://github.com/santiagovelasquezt2/personal-portfolio.git
 cd personal-portfolio
 
 # Install dependencies
