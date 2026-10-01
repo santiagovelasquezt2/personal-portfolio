@@ -1,6 +1,3 @@
-# Dependencies
-/node_modules/
-
 # macOS
 .DS_Store
 **/.DS_Store
@@ -10,19 +7,3 @@
 
 # Environment files
 .env*
-
-# Build output
-.next/
-out/
-build/
-dist/
-
-# Debug logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# TypeScript
-*.tsbuildinfo
-next-env.d.ts
