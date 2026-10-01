@@ -9,7 +9,330 @@
   <link rel="icon" href="/assets/icons/icon-light-32x32.png" media="(prefers-color-scheme: light)">
   <link rel="icon" href="/assets/icons/icon-dark-32x32.png" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="/assets/icons/apple-icon.png">
-  <link rel="stylesheet" href="/portfolio.css">
+  <style>
+/* Theme tokens */
+:root {
+  color-scheme: light dark;
+
+  --bg: #fff;
+  --text: #161616;
+  --muted: #505050;
+  --link: #00e;
+  --hover: #551a8b;
+
+  --panel: #e6f2ff;
+  --border: #bdd3e8;
+  --preview: #f7fbff;
+  --hi: #f7fbff;
+  --shadow: #8baac7;
+  --btn-hover: #d6eaff;
+  --btn-active: #c9e2fc;
+
+  --icon: brightness(0);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14191f;
+    --text: #edf2f7;
+    --muted: #bac7d4;
+    --link: #a9d3ff;
+    --hover: #d4e8ff;
+
+    --panel: #263d53;
+    --border: #435c73;
+    --preview: #1c2834;
+    --hi: #6083a3;
+    --shadow: #101a24;
+    --btn-hover: #324e69;
+    --btn-active: #203448;
+
+    --icon: brightness(0) invert(1);
+  }
+
+  .concordia {
+    padding: 6px;
+    background: #fff;
+    box-sizing: content-box;
+  }
+}
+
+/* Base and typography */
+body {
+  box-sizing: border-box;
+  max-width: calc(70ch + 150px);
+  margin: 24px auto;
+  padding: 0 20px 0 150px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Times New Roman', Times, serif;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  padding: 12px 0;
+  font-size: 32px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+h2 {
+  padding: 5px 8px;
+  background: var(--panel);
+  font-size: 18px;
+  line-height: 24px;
+}
+
+h3 {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Links and keyboard focus */
+a {
+  color: var(--link);
+}
+
+a:hover {
+  color: var(--hover);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+
+.skip {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  padding: 8px;
+  background: var(--bg);
+  border: 1px solid var(--link);
+  transform: translateY(-150%);
+}
+
+.skip:focus {
+  transform: none;
+}
+
+/* Portfolio navigation */
+nav {
+  position: fixed;
+  top: 50%;
+  left: 12px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 114px;
+  transform: translateY(-50%);
+}
+
+nav a {
+  padding: 10px 12px;
+  border: 2px solid;
+  border-color: var(--hi) var(--shadow) var(--shadow) var(--hi);
+  background: var(--panel);
+  color: var(--text);
+  font: 700 14px/18px Verdana, Arial, sans-serif;
+  text-align: center;
+  text-decoration: none;
+}
+
+nav a:hover {
+  background: var(--btn-hover);
+  color: var(--text);
+}
+
+nav a:active {
+  border-color: var(--shadow) var(--hi) var(--hi) var(--shadow);
+  background: var(--btn-active);
+}
+
+/* Page sections */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 22px 0;
+}
+
+section {
+  scroll-margin-top: 16px;
+}
+
+section > :not(h2) {
+  margin: 10px 8px 0;
+}
+
+#work {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#work > h2 {
+  margin-bottom: 4px;
+}
+
+/* Project list */
+.projects {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.projects article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+video {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  background: var(--preview);
+}
+
+.gh {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.gh img {
+  filter: var(--icon);
+}
+
+/* Education */
+.edu article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.edu article + article {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.edu p {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.edu img {
+  flex-shrink: 0;
+}
+
+.byu {
+  object-fit: contain;
+}
+
+/* Contact and footer */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 24px;
+}
+
+footer {
+  padding: 10px 0 20px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  body {
+    margin: 12px auto;
+    padding: 0 12px 0 88px;
+  }
+
+  nav {
+    left: 6px;
+    width: 72px;
+  }
+
+  nav a {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  main {
+    gap: 18px;
+    padding: 18px 0;
+  }
+
+  h2 {
+    font-size: 17px;
+  }
+
+  .edu article {
+    gap: 10px;
+  }
+
+  .edu h3 {
+    font-size: 16px;
+  }
+
+  .edu p {
+    font-size: 14px;
+  }
+
+  .concordia {
+    width: 94px;
+    height: auto;
+  }
+
+  .byu {
+    width: 68px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 359px) {
+  .edu article {
+    flex-wrap: wrap;
+  }
+}
+
+.books { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.books { justify-items: center; }
+.books img { width: 70%; height: auto; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 4px; }
+
+.share { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.share figure { margin: 0; text-align: center; }
+.share img, .share video { width: 100%; height: auto; border-radius: 4px; }
+.share figcaption { font-size: 14px; color: var(--muted); }
+  </style>
 </head>
 <body>
   <h1>Santiago Velasquez</h1>
@@ -32,41 +355,62 @@
       <h2 id="projects-h">things I make</h2>
       <div class="projects">
         <article>
-          <video src="/assets/video/theonboard.mp4" width="960" height="530" muted loop playsinline preload="none" aria-label="The Onboard demo"></video>
+          <video width="960" height="530" muted loop playsinline preload="none" aria-label="The Onboard demo">
+            <source src="/assets/video/theonboard.mp4" media="(min-width: 601px)" type="video/mp4">
+            <source src="/assets/video/mobile/theonboard.mp4" type="video/mp4">
+          </video>
           <h3><a href="https://the-onboard.vercel.app" target="_blank" rel="noopener noreferrer">The Onboard</a></h3>
           <a class="gh" href="https://github.com/santiagovelasquezt2/The-Onboard" target="_blank" rel="noopener noreferrer" aria-label="The Onboard on GitHub"><img src="/assets/img/github.svg" width="18" height="18" alt=""></a>
           <p>Getting new people up to speed, fast.</p>
         </article>
         <article>
-          <video src="/assets/video/tnkr.mp4" width="960" height="530" muted loop playsinline preload="none" aria-label="TNKR demo"></video>
+          <video width="960" height="530" muted loop playsinline preload="none" aria-label="TNKR demo">
+            <source src="/assets/video/tnkr.mp4" media="(min-width: 601px)" type="video/mp4">
+            <source src="/assets/video/mobile/tnkr.mp4" type="video/mp4">
+          </video>
           <h3><a href="https://tnkr-tau.vercel.app" target="_blank" rel="noopener noreferrer">TNKR</a></h3>
           <a class="gh" href="https://github.com/santiagovelasquezt2/TNKR" target="_blank" rel="noopener noreferrer" aria-label="TNKR on GitHub"><img src="/assets/img/github.svg" width="18" height="18" alt=""></a>
           <p>Explore machines in interactive 3D.</p>
         </article>
         <article>
-          <video src="/assets/video/java.mp4" width="960" height="628" muted loop playsinline preload="none" aria-label="Java Gym Reception System demo"></video>
+          <video width="960" height="628" muted loop playsinline preload="none" aria-label="Java Gym Reception System demo">
+            <source src="/assets/video/java.mp4" media="(min-width: 601px)" type="video/mp4">
+            <source src="/assets/video/mobile/java.mp4" type="video/mp4">
+          </video>
           <h3>Java Gym Reception System</h3>
           <a class="gh" href="https://github.com/santiagovelasquezt2/Java-Gym-Reception-Management-Program" target="_blank" rel="noopener noreferrer" aria-label="Java Gym Reception System on GitHub"><img src="/assets/img/github.svg" width="18" height="18" alt=""></a>
           <p>Gym check-ins &amp; memberships.</p>
         </article>
         <article>
-          <video src="/assets/video/dentist.mp4" width="960" height="530" muted loop playsinline preload="none" aria-label="Dentist demo"></video>
+          <video width="960" height="530" muted loop playsinline preload="none" aria-label="Dentist demo">
+            <source src="/assets/video/dentist.mp4" media="(min-width: 601px)" type="video/mp4">
+            <source src="/assets/video/mobile/dentist.mp4" type="video/mp4">
+          </video>
           <h3><a href="https://dentiste-lachenaie.vercel.app" target="_blank" rel="noopener noreferrer">Dentist</a></h3>
           <a class="gh" href="https://github.com/santiagovelasquezt2/Dentiste-Lachenaie" target="_blank" rel="noopener noreferrer" aria-label="Dentist on GitHub"><img src="/assets/img/github.svg" width="18" height="18" alt=""></a>
           <p>A simple, modern site for a dental clinic.</p>
         </article>
         <article>
-          <video src="/assets/video/lamoureux.mp4" width="960" height="530" muted loop playsinline preload="none" aria-label="Équipements Lamoureux demo"></video>
+          <video width="960" height="530" muted loop playsinline preload="none" aria-label="Équipements Lamoureux demo">
+            <source src="/assets/video/lamoureux.mp4" media="(min-width: 601px)" type="video/mp4">
+            <source src="/assets/video/mobile/lamoureux.mp4" type="video/mp4">
+          </video>
           <h3><a href="https://equipementslamoureux.com" target="_blank" rel="noopener noreferrer">Équipements Lamoureux</a></h3>
           <p>A clean, fast site for an equipment dealer.</p>
         </article>
         <article>
-          <video src="/assets/video/premierstriping.mp4" width="960" height="530" muted loop playsinline preload="none" aria-label="Premier Striping demo"></video>
+          <video width="960" height="530" muted loop playsinline preload="none" aria-label="Premier Striping demo">
+            <source src="/assets/video/premierstriping.mp4" media="(min-width: 601px)" type="video/mp4">
+            <source src="/assets/video/mobile/premierstriping.mp4" type="video/mp4">
+          </video>
           <h3><a href="https://premierstriping.co" target="_blank" rel="noopener noreferrer">Premier Striping</a></h3>
           <p>A sharp site for a parking-lot striping company.</p>
         </article>
         <article>
-          <video src="/assets/video/buddy.mp4" width="960" height="530" muted loop playsinline preload="none" aria-label="Buddy Brewer demo"></video>
+          <video width="960" height="530" muted loop playsinline preload="none" aria-label="Buddy Brewer demo">
+            <source src="/assets/video/buddy.mp4" media="(min-width: 601px)" type="video/mp4">
+            <source src="/assets/video/mobile/buddy.mp4" type="video/mp4">
+          </video>
           <h3><a href="https://buddybrewer.co" target="_blank" rel="noopener noreferrer">Buddy Brewer</a></h3>
           <p>A friendly little app to keep you company.</p>
         </article>
@@ -81,11 +425,11 @@
     </section>
     <section id="books" aria-labelledby="books-h">
       <h2 id="books-h">where I learn unofficially aka books</h2>
-      <div class="books"><img src="/assets/img/books/1.jpg" width="500" height="750" alt="Book cover 1" loading="lazy" decoding="async"><img src="/assets/img/books/2.jpg" width="500" height="750" alt="Book cover 2" loading="lazy" decoding="async"><img src="/assets/img/books/3.jpg" width="500" height="750" alt="Book cover 3" loading="lazy" decoding="async"><img src="/assets/img/books/4.jpg" width="500" height="750" alt="Book cover 4" loading="lazy" decoding="async"><img src="/assets/img/books/5.jpg" width="500" height="750" alt="Book cover 5" loading="lazy" decoding="async"><img src="/assets/img/books/6.jpg" width="500" height="750" alt="Book cover 6" loading="lazy" decoding="async"><img src="/assets/img/books/7.jpg" width="500" height="750" alt="Book cover 7" loading="lazy" decoding="async"><img src="/assets/img/books/8.jpg" width="500" height="750" alt="Book cover 8" loading="lazy" decoding="async"><img src="/assets/img/books/9.jpg" width="500" height="750" alt="Book cover 9" loading="lazy" decoding="async"><img src="/assets/img/books/10.jpg" width="500" height="750" alt="Book cover 10" loading="lazy" decoding="async"><img src="/assets/img/books/11.jpg" width="500" height="750" alt="Book cover 11" loading="lazy" decoding="async"><img src="/assets/img/books/12.jpg" width="500" height="750" alt="Book cover 12" loading="lazy" decoding="async"><img src="/assets/img/books/13.jpg" width="500" height="750" alt="Book cover 13" loading="lazy" decoding="async"><img src="/assets/img/books/14.jpg" width="500" height="750" alt="Economics in One Lesson by Henry Hazlitt" loading="lazy" decoding="async"></div>
+      <div class="books"><img src="/assets/img/books/1.webp" srcset="/assets/img/books/1-200.webp 200w, /assets/img/books/1-400.webp 400w, /assets/img/books/1.webp 504w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 1" loading="lazy" decoding="async"><img src="/assets/img/books/2.webp" srcset="/assets/img/books/2-200.webp 200w, /assets/img/books/2-400.webp 400w, /assets/img/books/2.webp 500w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 2" loading="lazy" decoding="async"><img src="/assets/img/books/3.webp" srcset="/assets/img/books/3-200.webp 200w, /assets/img/books/3-400.webp 400w, /assets/img/books/3.webp 495w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 3" loading="lazy" decoding="async"><img src="/assets/img/books/4.webp" srcset="/assets/img/books/4-200.webp 200w, /assets/img/books/4-400.webp 400w, /assets/img/books/4.webp 503w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 4" loading="lazy" decoding="async"><img src="/assets/img/books/5.webp" srcset="/assets/img/books/5-200.webp 200w, /assets/img/books/5-400.webp 400w, /assets/img/books/5.webp 565w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 5" loading="lazy" decoding="async"><img src="/assets/img/books/6.webp" srcset="/assets/img/books/6-200.webp 200w, /assets/img/books/6-400.webp 400w, /assets/img/books/6.webp 562w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 6" loading="lazy" decoding="async"><img src="/assets/img/books/7.webp" srcset="/assets/img/books/7-200.webp 200w, /assets/img/books/7-400.webp 400w, /assets/img/books/7.webp 496w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 7" loading="lazy" decoding="async"><img src="/assets/img/books/8.webp" srcset="/assets/img/books/8-200.webp 200w, /assets/img/books/8-400.webp 400w, /assets/img/books/8.webp 497w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 8" loading="lazy" decoding="async"><img src="/assets/img/books/9.webp" srcset="/assets/img/books/9-200.webp 200w, /assets/img/books/9-400.webp 400w, /assets/img/books/9.webp 485w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 9" loading="lazy" decoding="async"><img src="/assets/img/books/10.webp" srcset="/assets/img/books/10-200.webp 200w, /assets/img/books/10-400.webp 400w, /assets/img/books/10.webp 500w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 10" loading="lazy" decoding="async"><img src="/assets/img/books/11.webp" srcset="/assets/img/books/11-200.webp 200w, /assets/img/books/11-400.webp 400w, /assets/img/books/11.webp 491w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 11" loading="lazy" decoding="async"><img src="/assets/img/books/12.webp" srcset="/assets/img/books/12-200.webp 200w, /assets/img/books/12-400.webp 400w, /assets/img/books/12.webp 489w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 12" loading="lazy" decoding="async"><img src="/assets/img/books/13.webp" srcset="/assets/img/books/13-200.webp 200w, /assets/img/books/13-400.webp 400w, /assets/img/books/13.webp 500w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Book cover 13" loading="lazy" decoding="async"><img src="/assets/img/books/14.webp" srcset="/assets/img/books/14-200.webp 200w, /assets/img/books/14-400.webp 400w, /assets/img/books/14.webp 500w" sizes="(max-width: 600px) calc(35vw - 44.8px), (max-width: 710px) calc(35vw - 69.3px), 180px" width="500" height="750" alt="Economics in One Lesson by Henry Hazlitt" loading="lazy" decoding="async"></div>
     </section>
     <section id="sharing" aria-labelledby="sharing-h">
       <h2 id="sharing-h">what I'd like to share</h2>
-      <div class="share"><figure><img src="/assets/img/share/grok.jpg" width="693" height="675" alt="Shadow the Hedgehog" loading="lazy" decoding="async"><figcaption>this is my slack pfp</figcaption></figure><figure><img src="/assets/img/share/0048.jpg" width="900" height="1200" alt="Photo" loading="lazy" decoding="async"></figure><figure><img src="/assets/img/share/0424.jpg" width="900" height="1200" alt="Photo" loading="lazy" decoding="async"></figure><figure><img src="/assets/img/share/1744.jpg" width="900" height="675" alt="Photo" loading="lazy" decoding="async"></figure><figure><video src="/assets/video/IMG_2521.mp4" width="360" height="640" muted loop playsinline preload="none" aria-label="Video"></video></figure><figure><video src="/assets/video/IMG_1133.mp4" width="360" height="640" muted loop playsinline preload="none" aria-label="Video"></video></figure></div>
+      <div class="share"><figure><img src="/assets/img/share/grok.webp" srcset="/assets/img/share/grok-320.webp 320w, /assets/img/share/grok-640.webp 640w, /assets/img/share/grok.webp 693w" sizes="(max-width: 600px) calc(50vw - 64px), (max-width: 710px) calc(50vw - 99px), 256px" width="693" height="675" alt="Shadow the Hedgehog" loading="lazy" decoding="async"><figcaption>this is my slack pfp</figcaption></figure><figure><img src="/assets/img/share/0048.webp" srcset="/assets/img/share/0048-320.webp 320w, /assets/img/share/0048-640.webp 640w, /assets/img/share/0048.webp 675w" sizes="(max-width: 600px) calc(50vw - 64px), (max-width: 710px) calc(50vw - 99px), 256px" width="900" height="1200" alt="Photo" loading="lazy" decoding="async"></figure><figure><img src="/assets/img/share/0424.webp" srcset="/assets/img/share/0424-320.webp 320w, /assets/img/share/0424-640.webp 640w, /assets/img/share/0424.webp 675w" sizes="(max-width: 600px) calc(50vw - 64px), (max-width: 710px) calc(50vw - 99px), 256px" width="900" height="1200" alt="Photo" loading="lazy" decoding="async"></figure><figure><img src="/assets/img/share/1744.webp" srcset="/assets/img/share/1744-320.webp 320w, /assets/img/share/1744-640.webp 640w, /assets/img/share/1744.webp 675w" sizes="(max-width: 600px) calc(50vw - 64px), (max-width: 710px) calc(50vw - 99px), 256px" width="675" height="900" alt="Photo" loading="lazy" decoding="async"></figure><figure><video src="/assets/video/IMG_2521.mp4" width="360" height="640" muted loop playsinline preload="none" aria-label="Video"></video></figure><figure><video src="/assets/video/IMG_1133.mp4" width="360" height="640" muted loop playsinline preload="none" aria-label="Video"></video></figure></div>
     </section>
     <section id="contact" aria-labelledby="contact-h">
       <h2 id="contact-h">where you can to talk to me</h2>
