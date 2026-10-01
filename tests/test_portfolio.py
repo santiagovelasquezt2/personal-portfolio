@@ -1,5 +1,6 @@
 import re
 import unittest
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -44,6 +45,24 @@ PAGE.feed(HTML)
 
 
 class PortfolioTests(unittest.TestCase):
+    def test_user_descriptions_match_the_seven_projects_verbatim(self):
+        expected = [
+            ("The Onboard", "i like f1 so i pulled data from an api and found a track + car off sketch fab and recreated the lap in 3D with telemetry"),
+            ("TNKR", "i though it’d be cool to take 3D models to another level and see them decoupled and be able to isolate and explain them"),
+            ("Java Gym Reception System", "school made me do it but it taught me OOP fundamentals"),
+            ("Dentist", "an experiment where i tried remodelling a local dentist website to practice my website creation skills"),
+            ("Équipements Lamoureux", "a real customer that wanted a revamp + working shopify store"),
+            ("Premier Striping", "another customer that wanted their first website to display their work"),
+            ("Buddy Brewer", "a new and upcoming drink company i did their website"),
+        ]
+        section = re.search(r'<section id="projects".*?</section>', HTML, re.S).group()
+        articles = re.findall(r'<article>(.*?)</article>', section, re.S)
+        self.assertEqual(len(articles), len(expected))
+        for article, (title, description) in zip(articles, expected):
+            heading = re.search(r'<h3>(.*?)</h3>', article, re.S).group(1)
+            self.assertEqual(unescape(re.sub(r'<[^>]+>', '', heading)), title)
+            self.assertEqual(re.findall(r'<p>(.*?)</p>', article, re.S), [description])
+
     def test_css_is_inline_and_not_a_render_blocking_request(self):
         self.assertEqual(HTML.count("<style>"), 1)
         self.assertFalse(any(link.get("rel") == "stylesheet" for link in PAGE.links))
